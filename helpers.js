@@ -1,3 +1,31 @@
+import { player, win, previousRatio } from './game.js'
+import { rounds, categorySurname, lifePerCategory } from './CONSTANTS.js'
+
+
+let categoryChoosen = ""
+
+function DefineModality() {
+  const name = prompt('Alright recruit, give me your name :', '')
+  if (!name) {
+    alert('Alright, you will be called Simone ! 🤓');
+  }
+  
+  let categorySelection = prompt(`Stand up ${name}, and pick up your difficulty level !\nChoose between : easy - medium - hard`)
+  categorySelection = FormatField(categorySelection)
+  
+  let surname = categorySurname[categorySelection] ?? "rockstar"
+  
+  
+  for (const [key, value] in categorySurname) {
+    if (surname === value) {
+      categoryChoosen = key
+      player.life = lifePerCategory[key]
+      break
+    }
+  }
+}
+
+
 
 function DisplayHeartsLife() {
   let numberOfHearts = 0
@@ -39,4 +67,4 @@ function Capitalize(word) {
 }
   
 
-export {DisplayHeartsLife, FormatField, DisplayResultInConsole, Capitalize}
+export {DisplayHeartsLife, FormatField, DisplayResultInConsole, Capitalize, DefineModality}

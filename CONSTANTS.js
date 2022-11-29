@@ -1,3 +1,5 @@
+import { DefineModality } from "./helpers"
+
 const rounds = 5
 const gameConstants = ['rock', 'paper', 'scissors']
 const [rock, paper, scissors] = gameConstants
@@ -23,5 +25,12 @@ const categorySurname = {
   hard: "rockstar"
 }
 
+const playerData = [
+  []
+]
 
-export {rounds, gameConstants, WinningsRules, category, lifePerCategory, categorySurname}
+// name, life, bonus, win, category
+window.RANKING = []
+
+
+export {rounds, gameConstants, WinningsRules, category, lifePerCategory, categorySurname, RANKING}

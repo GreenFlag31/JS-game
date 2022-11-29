@@ -1,18 +1,19 @@
-import Player from './Player.js'
-import { rounds, gameConstants, WinningsRules, category, lifePerCategory, categorySurname } from './CONSTANTS.js'
-import { DisplayHeartsLife, FormatField, DisplayResultInConsole, Capitalize } from './helpers.js'
+import { Player, PlayerData } from './Player.js'
+import { rounds, gameConstants, WinningsRules, category, lifePerCategory, categorySurname, RANKING } from './CONSTANTS.js'
+import { DefineModality, DisplayHeartsLife, FormatField, DisplayResultInConsole, Capitalize } from './helpers.js'
 
 
 let win = 0
 let previousRatio = 0
-let categoryChoosen = ""
 const player = new Player()
+
 
 
 
 function computerPlay() {
   return gameConstants[Math.floor(Math.random() * gameConstants.length)]
 }
+
 
 function playRound(playerSelection, computerSelection) {
   
@@ -26,27 +27,16 @@ function playRound(playerSelection, computerSelection) {
   } else {
     player.DecrementLife()
     return `Hehehe. You lost ! ${Capitalize(WinningsRules[playerSelection])} beats ${Capitalize(playerSelection)}
-    \nRemaining life${lifePerCategory[categoryChoosen] > 1 ? 's' : ''} : ${DisplayHeartsLife()}`
+    \nRemaining life${player.life > 1 ? 's' : ''} : ${DisplayHeartsLife()}`
   }
 
 }
 
 
 
+
 window.game = () => {
-  let categorySelection = prompt('Stand up soldier, and pick up your difficulty level !\nChoose between : easy - medium - hard')
-  categorySelection = FormatField(categorySelection)
-
-  let surname = categorySurname[categorySelection] ?? "rockstar"
-
-  
-  for (const [key, value] in categorySurname) {
-    if (surname === value) {
-      categoryChoosen = key
-      player.life = lifePerCategory[key]
-      break
-    }
-  }
+  DefineModality()
 
 
   let i = 5
@@ -74,16 +64,21 @@ window.game = () => {
     i--
   }
   
-  
-  console.log(`Total score : ${win} / ${rounds}`)
+
+
+  const currentPlayer = new PlayerData(name, player.life, bonus, win, categoryChoosen)
+  currentPlayer.Records(values)
+  console.table(RANKING)
   previousRatio = 0
+  console.log('%cStart a new game by typing "game()" in the console', 'color: #17d136')
 }
 
 
 
 
 console.log('%cStart a game by typing "game()" in the console', 'color: #17d136')
-// Easy, medium, hard, extra-hard
+// Easy, medium, hard
 // ask for the name
 // display ranking console.table
 // normal, 3 lifes, regex, min-points
+export { win, previousRatio, player }

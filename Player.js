@@ -1,6 +1,6 @@
-import {category, lifePerCategory} from './CONSTANTS.js'
+import { RANKING } from './CONSTANTS.js'
 
-export default class Player {
+class Player {
   constructor() {
   }
 
@@ -24,3 +24,21 @@ export default class Player {
     return life > 0
   }
 }
+
+
+class PlayerData {
+  constructor(name, life, bonus, win, category) {
+    this.Name = name
+    this.Life = life
+    this.Bonus = bonus
+    this.Win = win
+    this.Category = category
+  }
+
+  Records(data) {
+    RANKING.push(data)
+  }
+}
+
+// name, life, bonus, win, category
+export { Player, PlayerData }
