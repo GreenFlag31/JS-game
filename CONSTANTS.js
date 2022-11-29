@@ -17,4 +17,11 @@ const lifePerCategory = {
 }
 
 
-export {rounds, gameConstants, WinningsRules, category, lifePerCategory}
+const categorySurname = {
+  easy: "chick",
+  medium: "soldier",
+  hard: "rockstar"
+}
+
+
+export {rounds, gameConstants, WinningsRules, category, lifePerCategory, categorySurname}
