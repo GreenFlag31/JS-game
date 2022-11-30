@@ -1,44 +1,58 @@
-import { RANKING } from './CONSTANTS.js'
-
 class Player {
+  #life
   constructor() {
   }
 
   get life() {
-    return this._life
+    return this.#life
   }
   
   set life(value) {
-    this._life = value
+    this.#life = value
   }
 
   DecrementLife() {
-    return this._life--
+    return this.#life--
   }
 
   IncrementLife() {
-    return this._life++
+    return this.#life++
   }
 
   Alive() {
-    return life > 0
+    return this.life > 0
   }
 }
 
 
 class PlayerData {
   constructor(name, life, bonus, win, category) {
-    this.Name = name
-    this.Life = life
-    this.Bonus = bonus
-    this.Win = win
-    this.Category = category
+    this.name = name
+    this.life = life
+    this.bonus = bonus
+    this.win = win
+    this.category = category
+    this.points = this.ComputeTotalPoints()
+    this.SetRecords()
+  }
+  
+  SetRecords() {
+    window.RANKING.push(this)
+    this.SortRanking()
   }
 
-  Records(data) {
-    RANKING.push(data)
+  ComputeTotalPoints() {
+    if (this.category === 'hard') {
+      return (this.life * 1.5) + (this.win * 1.25) + (this.bonus * 1.75)
+    }
+
+    return this.life + (this.win * 1.25) + (this.bonus * 1.75)
   }
+
+  SortRanking() {
+    window.RANKING.sort((a, b) => b.points - a.points)
+  }
+
 }
 
-// name, life, bonus, win, category
 export { Player, PlayerData }

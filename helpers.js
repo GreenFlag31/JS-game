@@ -1,22 +1,25 @@
-import { player, win, previousRatio } from './game.js'
+import { player, win, playRound, computerPlay } from './game.js'
 import { rounds, categorySurname, lifePerCategory } from './CONSTANTS.js'
 
 
 let categoryChoosen = ""
+let name = ""
+let surname = ""
+let previousRatio = 0
 
 function DefineModality() {
-  const name = prompt('Alright recruit, give me your name :', '')
+  name = prompt('Alright recruit, give me your name :', '')
   if (!name) {
     alert('Alright, you will be called Simone ! 🤓');
+    name = 'Simone'
   }
   
-  let categorySelection = prompt(`Stand up ${name}, and pick up your difficulty level !\nChoose between : easy - medium - hard`)
+  let categorySelection = prompt(`Stand up ${name}, and pick up your difficulty level !\nChoose between : easy - medium - hard`, 'easy')
   categorySelection = FormatField(categorySelection)
   
-  let surname = categorySurname[categorySelection] ?? "rockstar"
+  surname = categorySurname[categorySelection] ?? "rockstar"
   
-  
-  for (const [key, value] in categorySurname) {
+  for (const [key, value] of Object.entries(categorySurname)) {
     if (surname === value) {
       categoryChoosen = key
       player.life = lifePerCategory[key]
@@ -28,9 +31,9 @@ function DefineModality() {
 
 
 function DisplayHeartsLife() {
-  let numberOfHearts = 0
+  let numberOfHearts = ""
 
-  for (let i = 0; i < lifePerCategory[categoryChoosen]; i++) {
+  for (let i = 0; i < player.life; i++) {
     numberOfHearts += "❤️"
   }
 
@@ -39,7 +42,7 @@ function DisplayHeartsLife() {
   
 
 function FormatField(field) {
-  field = field.toLowerCase().replace(/\s|\W|[0-9]/g, '')
+  return field.toLowerCase().replace(/\s|\W|[0-9]/g, '')
 }
 
 
@@ -58,6 +61,7 @@ function DisplayResultInConsole(playerSelection) {
   }
 
   previousRatio = win / rounds
+  // 🔥
   console.log(`Score %c${scoreStatus} %c: ${win} / ${rounds}`, `color: ${color}`, `color: white`)
 }
   
@@ -67,4 +71,4 @@ function Capitalize(word) {
 }
   
 
-export {DisplayHeartsLife, FormatField, DisplayResultInConsole, Capitalize, DefineModality}
+export { DisplayHeartsLife, FormatField, DisplayResultInConsole, Capitalize, DefineModality, name, surname, categoryChoosen }
