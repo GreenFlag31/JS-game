@@ -31,10 +31,10 @@ function DefineModality() {
 
 
 function DisplayHeartsLife() {
-  let numberOfHearts = ""
+  let numberOfHearts = []
 
   for (let i = 0; i < player.life; i++) {
-    numberOfHearts += "❤️"
+    numberOfHearts.push("❤️")
   }
 
   return numberOfHearts

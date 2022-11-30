@@ -26,7 +26,7 @@ function playRound(playerSelection, computerSelection) {
   } else {
     player.DecrementLife()
     return `Hehehe. You lost ! ${Capitalize(WinningsRules[playerSelection])} beats ${Capitalize(playerSelection)}
-    \nRemaining life${player.life > 1 ? 's' : ''} : ${DisplayHeartsLife()}`
+    \nRemaining life${player.life > 1 ? 's' : ''} : ${DisplayHeartsLife().join()}`
   }
 
 }
@@ -49,7 +49,9 @@ window.game = () => {
 
     let playerSelection = prompt(`Alright ${surname}, let\'s start the game !\n\nChoose between : paper - scissors - rock`, 'paper')
     if (playerSelection === null) {
-      console.log('A true warrior does not leave the battlefield without fighting!');
+      console.log('A true warrior does not leave the battlefield without fighting!\nPenalty of 3');
+      new PlayerData(name, [], [], 0, "💀💀💀", 3)
+      console.table(window.RANKING)
       return
     } 
 
@@ -74,10 +76,6 @@ window.game = () => {
 
 
 
-
 console.log('%cStart a game by typing "game()" in the console', 'color: #17d136')
-// Easy, medium, hard
-// ask for the name
-// display ranking console.table
-// normal, 3 lifes, regex, min-points
+
 export { win, player, playRound, computerPlay }
