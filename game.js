@@ -50,7 +50,7 @@ window.game = () => {
     let playerSelection = prompt(`Alright ${surname}, let\'s start the game !\n\nChoose between : paper - scissors - rock`, 'paper')
     if (playerSelection === null) {
       console.log('A true warrior does not leave the battlefield without fighting!\nPenalty of 3');
-      new PlayerData(name, [], [], 0, "💀💀💀", 3)
+      new PlayerData(name, [], [], 0, "🐣🐣🐣", 3)
       console.table(window.RANKING)
       return
     } 
@@ -68,7 +68,7 @@ window.game = () => {
   
   
   new PlayerData(name, player.life, 2, win, categoryChoosen)
-  console.log('\n%c ACTUAL RANKING : \n', 'color: BlueViolet')
+  console.log('\n%c ACTUAL RANKING : \n', 'color: pink; font-weight: 900; font-size; 1.2em')
   console.table(window.RANKING)
   console.log('%cStart a new game by typing "game()" in the console', 'color: #17d136')
   win = 0
