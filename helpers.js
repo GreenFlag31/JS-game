@@ -42,7 +42,7 @@ function DisplayHeartsLife() {
   
 
 function FormatField(field) {
-  return field.toLowerCase().replace(/\s|\W|[0-9]/g, '')
+  return field?.toLowerCase().replace(/\s|\W|[0-9]/g, '') ?? undefined
 }
 
 

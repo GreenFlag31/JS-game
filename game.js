@@ -26,7 +26,7 @@ function playRound(playerSelection, computerSelection) {
   } else {
     player.DecrementLife()
     return `Hehehe. You lost ! ${Capitalize(WinningsRules[playerSelection])} beats ${Capitalize(playerSelection)}
-    \nRemaining life${player.life > 1 ? 's' : ''} : ${DisplayHeartsLife().join()}`
+    \nRemaining life${player.life > 1 ? 's' : ''} : ${DisplayHeartsLife().join('')}`
   }
 
 }
@@ -42,8 +42,7 @@ window.game = () => {
     if (!player.Alive()) {
       console.log(`%cThey who for their country die,\nshall fill an honored grave.\nFor glory lights the soldier's tomb,\nand beauty weeps the brave.
       \n\nJoseph Rodman Drake`, 'color: red');
-      new PlayerData(name, 0, 0, 0, "💀💀💀")
-      console.table(window.RANKING)
+      new PlayerData(name, [], [], 0, "💀💀💀")
       return
     }
 
@@ -51,7 +50,6 @@ window.game = () => {
     if (playerSelection === null) {
       console.log('A true warrior does not leave the battlefield without fighting!\nPenalty of 3');
       new PlayerData(name, [], [], 0, "🐣🐣🐣", 3)
-      console.table(window.RANKING)
       return
     } 
 
@@ -67,15 +65,14 @@ window.game = () => {
   }
   
   
-  new PlayerData(name, player.life, 2, win, categoryChoosen)
-  console.log('\n%c ACTUAL RANKING : \n', 'color: pink; font-weight: 900; font-size; 1.2em')
-  console.table(window.RANKING)
+  new PlayerData(name, DisplayHeartsLife(), ["🔥", "🔥"], win, categoryChoosen)
+
   console.log('%cStart a new game by typing "game()" in the console', 'color: #17d136')
   win = 0
 }
 
 
 
-console.log('%cStart a game by typing "game()" in the console', 'color: #17d136')
+console.log('%cStart a game by typing "game()" || Reset progress by typing "sessionStorage.clear() in the console', 'color: #17d136')
 
 export { win, player, playRound, computerPlay }
