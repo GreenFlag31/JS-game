@@ -70,7 +70,7 @@ class PlayerData {
 
   computeTotalPoints() {
     if (this.category === 'hard') {
-      return (this.life * 1.5) + (this.win * 1.25) + (this.bonus * 1.75) - this.penalty
+      return (this.life * 1.5) + (this.win * 1.25) + (this.bonus * 1.95) - this.penalty
     }
 
     return this.life + (this.win * 1.25) + (this.bonus * 1.75) - this.penalty
@@ -93,18 +93,33 @@ class PlayerData {
     }
 
 
-    sessionStorage.clear()
-    // faire un sessionStorage.clear() et re populer la SS
+    // record-0
+    // record-1
+    // STOPPED
+    // record-3
+    // ...
+
+    // sessionStorage.clear()
+    //  - 1 correction because of LiveServer !
     reversedRecords = reversedRecords.reverse()
     for (i = 0; i < reversedRecords.length; i++) {
       if (hash[reversedRecords[i]]) {
-        // sessionStorage.removeItem(`record-${sessionStorage.length - i - 1}`)
+        // removes the duplicate
+        sessionStorage.removeItem(`record-${sessionStorage.length - i - 1}`)
+        // add the current one in place
+        sessionStorage.setItem(`record-${sessionStorage.length - i - 1}`,
+        JSON.stringify(sessionStorage.length - 1))
+        // this.#records[hash.indexOf(reversedRecords[i])] ?
+        // removes the current one at last index
+        sessionStorage.removeItem(`record-${sessionStorage.length - 1}`)
+
+
         this.#records.splice(this.#records.length - i - 1, 1)
         debugger
         continue
       }
       hash[reversedRecords[i]] = true
-      sessionStorage.setItem(`record-${i}`)
+      // sessionStorage.setItem(`record-${i}`)
     }
   }
 
