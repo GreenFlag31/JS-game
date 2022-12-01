@@ -83,6 +83,6 @@ let instructionResetStorage = ""
 if (sessionStorage.getItem('record-0')) {
   instructionResetStorage = ' || Reset progress by typing "sessionStorage.clear()" in the console'
 }
-console.log(`%cStart a game by typing "game()"${instructionResetStorage}`, 'color: #17d136')
+console.log(`%cStart a game by typing "game()"${instructionResetStorage}`, 'color: #17d136; font-weight: bold; font-size: 1.1em')
 
 export { win, player, playRound, computerPlay, numberOfHearts, numberOfBonus }
