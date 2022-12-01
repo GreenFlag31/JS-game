@@ -6,6 +6,8 @@ let categoryChoosen = ""
 let name = ""
 let surname = ""
 let previousRatio = 0
+let numberOfBonus = ""
+
 
 function DefineModality() {
   name = prompt('Alright recruit, give me your name :', '')
@@ -57,8 +59,9 @@ function DisplayResultInConsole(playerSelection) {
   }
 
   previousRatio = win / rounds
+  numberOfBonus = DisplayIcons("⭐️", player.bonus)
   console.log(`Score %c${scoreStatus} %c: ${win} / ${rounds}
-  ${player.bonus > 0 ? '\nBonus :' : DisplayIcons("⭐️", player.bonus)}`, `color: ${color}`, `color: white`)
+  ${player.bonus > 0 ? '\nBonus :' : numberOfBonus}`, `color: ${color}`, `color: white`)
 }
   
 function Capitalize(word) {
@@ -85,9 +88,11 @@ function DisplayBonusQuestion() {
 function ValidateBonusQuestion(bonusQuestion) {
   if (bonusQuestion === bonusQuestion[randomQuestion]) {
     player.addBonus()
+  } else if (categoryChoosen === 'hard') {
+    player.substractBonus()
   }
 }
 
   
 
-export { DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, DefineModality, name, surname, categoryChoosen, DisplayBonusQuestion }
+export { DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, DefineModality, name, surname, categoryChoosen, DisplayBonusQuestion, numberOfBonus }

@@ -1,11 +1,11 @@
 import { Player, PlayerData } from './Player.js'
 import { gameConstants, WinningsRules } from './CONSTANTS.js'
-import { DefineModality, DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, name, surname, categoryChoosen, DisplayBonusQuestion } from './helpers.js'
+import { DefineModality, DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, name, surname, categoryChoosen, DisplayBonusQuestion, numberOfBonus } from './helpers.js'
 
 
 let win = 0
 const player = new Player()
-
+let numberOfHearts = ""
 
 
 
@@ -25,8 +25,9 @@ function playRound(playerSelection, computerSelection) {
     \nA programmer is like a Samurai. Try to think like the computer is thinking.`
   } else {
     player.decrementLife()
+    numberOfHearts = DisplayIcons("❤️", player.life)
     return `Hehehe. You lost ! ${Capitalize(WinningsRules[playerSelection])} beats ${Capitalize(playerSelection)}
-    \nRemaining life${player.life > 1 ? 's' : ''} : ${DisplayIcons("❤️", player.life)}`
+    \nRemaining life${player.life > 1 ? 's' : ''} : ${numberOfHearts}`
   }
 
 }
@@ -68,14 +69,17 @@ window.game = () => {
   }
   
   
-  new PlayerData(name, DisplayIcons(), player.bonus, win, categoryChoosen)
+  new PlayerData(name, numberOfHearts, numberOfBonus, win, categoryChoosen)
 
   console.log('%cStart a new game by typing "game()" in the console', 'color: #17d136')
   win = 0
 }
 
 
-
-console.log('%cStart a game by typing "game()" || Reset progress by typing "sessionStorage.clear() in the console', 'color: #17d136')
+let instructionResetStorage = ""
+if (sessionStorage.getItem('record-0')) {
+  instructionResetStorage = ' || Reset progress by typing "sessionStorage.clear() in the console'
+}
+console.log(`%cStart a game by typing "game()"${instructionResetStorage}`, 'color: #17d136')
 
 export { win, player, playRound, computerPlay }

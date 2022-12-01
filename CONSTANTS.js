@@ -1,5 +1,3 @@
-// import { DefineModality } from "./helpers.js"
-
 const rounds = 5
 const gameConstants = ['rock', 'paper', 'scissors']
 const [rock, paper, scissors] = gameConstants
