@@ -1,6 +1,6 @@
 import { Player, PlayerData } from './Player.js'
 import { gameConstants, WinningsRules } from './CONSTANTS.js'
-import { DefineModality, DisplayHeartsLife, FormatField, DisplayResultInConsole, Capitalize, name, surname, categoryChoosen, DisplayBonusQuestion } from './helpers.js'
+import { DefineModality, DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, name, surname, categoryChoosen, DisplayBonusQuestion } from './helpers.js'
 
 
 let win = 0
@@ -26,7 +26,7 @@ function playRound(playerSelection, computerSelection) {
   } else {
     player.decrementLife()
     return `Hehehe. You lost ! ${Capitalize(WinningsRules[playerSelection])} beats ${Capitalize(playerSelection)}
-    \nRemaining life${player.life > 1 ? 's' : ''} : ${DisplayHeartsLife().join('')}`
+    \nRemaining life${player.life > 1 ? 's' : ''} : ${DisplayIcons("❤️", player.life)}`
   }
 
 }
@@ -36,20 +36,22 @@ function playRound(playerSelection, computerSelection) {
 window.game = () => {
   DefineModality()
 
-
   let i = 5
   while (i) {
     if (!player.alive()) {
       console.log(`%cThey who for their country die,\nshall fill an honored grave.\nFor glory lights the soldier's tomb,\nand beauty weeps the brave.
       \n\nJoseph Rodman Drake`, 'color: red');
-      new PlayerData(name, [], [], 0, "💀💀💀")
+      player.bonus = 0
+      win = 0
+      new PlayerData(name, player.life, player.bonus, win, "💀💀💀")
       return
     }
 
-    let playerSelection = prompt(`Alright ${surname}, let\'s start the game !\n\nChoose between : paper - scissors - rock`, 'paper')
+    let playerSelection = prompt(`Alright ${surname}, let\'s ${i === 5 ? 'start' : 'continue'} the game !\n\nChoose between : paper - scissors - rock`, 'paper')
     if (playerSelection === null) {
-      console.log('A true warrior does not leave the battlefield without fighting!\nPenalty of 3');
-      new PlayerData(name, [], [], 0, "🐣🐣🐣", 3)
+      console.log('A true warrior does not leave the battlefield without fighting!\nPenalty of 3, bonus -1');
+      player.substractBonus()
+      new PlayerData(name, player.life, player.bonus, win, "🐣🐣🐣", 3)
       return
     } 
     
@@ -66,7 +68,7 @@ window.game = () => {
   }
   
   
-  new PlayerData(name, DisplayHeartsLife(), ["🔥", "🔥"], win, categoryChoosen)
+  new PlayerData(name, DisplayIcons(), player.bonus, win, categoryChoosen)
 
   console.log('%cStart a new game by typing "game()" in the console', 'color: #17d136')
   win = 0

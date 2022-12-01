@@ -28,23 +28,19 @@ function DefineModality() {
   }
 }
 
+function DisplayIcons(icon, number) {
+  let numberOfHearts = ""
 
-
-function DisplayHeartsLife() {
-  let numberOfHearts = []
-
-  for (let i = 0; i < player.life; i++) {
-    numberOfHearts.push("❤️")
+  for (let i = 0; i < number; i++) {
+    numberOfHearts += icon
   }
 
   return numberOfHearts
 }
-  
 
 function FormatField(field) {
   return field?.toLowerCase().replace(/\s|\W|[0-9]/g, '') ?? undefined
 }
-
 
 function DisplayResultInConsole(playerSelection) {
   let scoreStatus = ""
@@ -61,18 +57,12 @@ function DisplayResultInConsole(playerSelection) {
   }
 
   previousRatio = win / rounds
-  // 🔥
-  console.log(`Score %c${scoreStatus} %c: ${win} / ${rounds}`, `color: ${color}`, `color: white`)
+  console.log(`Score %c${scoreStatus} %c: ${win} / ${rounds}
+  ${player.bonus > 0 ? '\nBonus :' : DisplayIcons("⭐️", player.bonus)}`, `color: ${color}`, `color: white`)
 }
-  
   
 function Capitalize(word) {
   return word[0].toUpperCase() + word.substring(1)
-}
-
-function DisplayBonusQuestion() {
-  const randomQuestion = PickRandomQuestion()
-  let bonusQuestion = prompt('Bonus question !')
 }
 
 function PickRandomQuestion() {
@@ -81,6 +71,23 @@ function PickRandomQuestion() {
 
   return questions[randomNumber]
 }
+
+function DisplayBonusQuestion() {
+  const randomQuestion = PickRandomQuestion()
+  const instructionIfBooleanResponse = bonusQuestion[randomQuestion] === true || false ? 'Type true of false :' : ''
+  let bonusQuestion = prompt(`Bonus question ! ${instructionIfBooleanResponse}
+  \n\n${randomQuestion}`)
+  bonusQuestion = FormatField(bonusQuestion)
+
+  ValidateBonusQuestion(bonusQuestion)
+}
+
+function ValidateBonusQuestion(bonusQuestion) {
+  if (bonusQuestion === bonusQuestion[randomQuestion]) {
+    player.addBonus()
+  }
+}
+
   
 
-export { DisplayHeartsLife, FormatField, DisplayResultInConsole, Capitalize, DefineModality, name, surname, categoryChoosen, DisplayBonusQuestion }
+export { DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, DefineModality, name, surname, categoryChoosen, DisplayBonusQuestion }

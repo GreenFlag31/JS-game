@@ -1,6 +1,6 @@
 class Player {
   #life
-  #bonus 
+  #bonus = 0
 
   constructor() { }
 
@@ -28,9 +28,18 @@ class Player {
     return this.#bonus
   }
 
+  set bonus(value) {
+    return this.#bonus = value
+  }
+
   addBonus() {
     return this.#bonus++
   }
+
+  substractBonus() {
+    return this.#bonus--
+  }
+  
 }
 
 
@@ -38,6 +47,7 @@ class PlayerData {
   #records = []
 
   constructor(name, life, bonus, win, category, penalty = 0) {
+    super()
     this.name = name
     this.life = life
     this.bonus = bonus
@@ -49,8 +59,6 @@ class PlayerData {
   }
   
   SetRecords() {
-    this.life = this.life.join('')
-    this.bonus = this.bonus.join('')
     this.AppendToSessionStorage()
     this.RetrieveExistingRecords()
     this.SortRanking()
@@ -59,10 +67,10 @@ class PlayerData {
 
   ComputeTotalPoints() {
     if (this.category === 'hard') {
-      return (this.life.length * 1.5) + (this.win * 1.25) + (this.bonus.length * 1.75) - this.penalty
+      return (super.life * 1.5) + (this.win * 1.25) + (super.bonus * 1.75) - this.penalty
     }
 
-    return this.life.length + (this.win * 1.25) + (this.bonus.length * 1.75) - this.penalty
+    return super.life + (this.win * 1.25) + (super.bonus * 1.75) - this.penalty
   }
 
   RetrieveExistingRecords() {
