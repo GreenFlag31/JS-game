@@ -22,7 +22,7 @@ function playRound(playerSelection, computerSelection) {
     \nHow dare you ! I will break your code soon or later !`
   } else if (playerSelection === computerSelection) {
     return `Too bad, draw. You picked up the same value !
-    \nA programmer is like a Samurai. Try to think like the computer is thinking.`
+    \nA programmer is like a Samurai with his sword. Try to think like the computer is thinking.`
   } else {
     player.decrementLife()
     numberOfHearts = DisplayIcons("❤️", player.life)

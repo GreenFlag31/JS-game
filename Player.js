@@ -43,7 +43,7 @@ class Player {
 }
 
 
-class PlayerData {
+class PlayerData extends Player {
   #records = []
 
   constructor(name, life, bonus, win, category, penalty = 0) {
