@@ -25,10 +25,10 @@ const categorySurname = {
   hard: "rockstar"
 }
 
-const bonusQuestions = {
+const bonusQuestions =  {
   "My name contains 2 programming languages.\nMy father has given me the V8 engine.\nMy sister likes to do everything more strict than me. What is her name?" : "typescript",
 
-  "If the same id is used multiple times in the DOM, Google Chrome is going to raise warnings in the console" : true,
+  "To use several times the same id in the DOM is considered as a good practice" : false,
 
   "Following code will make the id disappear :\n#titanic : {\n  float: none;\n}" : false,
   
@@ -38,16 +38,15 @@ const bonusQuestions = {
 
   "(2b || !2b) comes from William Shakespeare" : true,
 
-  "The main flaw of using 'var' for defining a variable is that it had a global scope and tolerated redeclarations" : true,
+  "The main flaw of using 'var' for defining a variable is that it has a global scope and tolerates redeclarations" : true,
 
-  
+  "There are 7 primitive types: string, number, bigint, boolean, symbol, null and undefined" : true,
+  // https://developer.mozilla.org/en-US/docs/Glossary/Primitive
 
+  "To create a new array, we should always prefer the 'new array( )' syntax" : false,
 
+  "if you compare two values, '==' will make an implicite type conversion" : true
 }
 
-// name, life, bonus, win, category
-// need a DataBase :)
-window.RANKING = []
 
-
-export { rounds, gameConstants, WinningsRules, category, lifePerCategory, categorySurname }
+export { rounds, gameConstants, WinningsRules, category, lifePerCategory, categorySurname, bonusQuestions }

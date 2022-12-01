@@ -1,6 +1,6 @@
 import { Player, PlayerData } from './Player.js'
 import { gameConstants, WinningsRules } from './CONSTANTS.js'
-import { DefineModality, DisplayHeartsLife, FormatField, DisplayResultInConsole, Capitalize, name, surname, categoryChoosen } from './helpers.js'
+import { DefineModality, DisplayHeartsLife, FormatField, DisplayResultInConsole, Capitalize, name, surname, categoryChoosen, DisplayBonusQuestion } from './helpers.js'
 
 
 let win = 0
@@ -24,7 +24,7 @@ function playRound(playerSelection, computerSelection) {
     return `Too bad, draw. You picked up the same value !
     \nA programmer is like a Samurai. Try to think like the computer is thinking.`
   } else {
-    player.DecrementLife()
+    player.decrementLife()
     return `Hehehe. You lost ! ${Capitalize(WinningsRules[playerSelection])} beats ${Capitalize(playerSelection)}
     \nRemaining life${player.life > 1 ? 's' : ''} : ${DisplayHeartsLife().join('')}`
   }
@@ -39,7 +39,7 @@ window.game = () => {
 
   let i = 5
   while (i) {
-    if (!player.Alive()) {
+    if (!player.alive()) {
       console.log(`%cThey who for their country die,\nshall fill an honored grave.\nFor glory lights the soldier's tomb,\nand beauty weeps the brave.
       \n\nJoseph Rodman Drake`, 'color: red');
       new PlayerData(name, [], [], 0, "💀💀💀")
@@ -52,14 +52,15 @@ window.game = () => {
       new PlayerData(name, [], [], 0, "🐣🐣🐣", 3)
       return
     } 
-
+    
     playerSelection = FormatField(playerSelection)
     if (!gameConstants.includes(playerSelection)) {
       console.log('%cInvalid input', 'color: red')
       game()
       return
     }
-
+    
+    DisplayBonusQuestion()
     DisplayResultInConsole(playerSelection)
     i--
   }

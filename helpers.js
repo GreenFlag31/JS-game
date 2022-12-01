@@ -1,5 +1,5 @@
 import { player, win, playRound, computerPlay } from './game.js'
-import { rounds, categorySurname, lifePerCategory } from './CONSTANTS.js'
+import { rounds, categorySurname, lifePerCategory, bonusQuestions } from './CONSTANTS.js'
 
 
 let categoryChoosen = ""
@@ -69,6 +69,18 @@ function DisplayResultInConsole(playerSelection) {
 function Capitalize(word) {
   return word[0].toUpperCase() + word.substring(1)
 }
+
+function DisplayBonusQuestion() {
+  const randomQuestion = PickRandomQuestion()
+  let bonusQuestion = prompt('Bonus question !')
+}
+
+function PickRandomQuestion() {
+  const questions = Object.keys(bonusQuestions)
+  const randomNumber = Math.floor(Math.random() * questions.length)
+
+  return questions[randomNumber]
+}
   
 
-export { DisplayHeartsLife, FormatField, DisplayResultInConsole, Capitalize, DefineModality, name, surname, categoryChoosen }
+export { DisplayHeartsLife, FormatField, DisplayResultInConsole, Capitalize, DefineModality, name, surname, categoryChoosen, DisplayBonusQuestion }

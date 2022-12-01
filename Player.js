@@ -12,15 +12,15 @@ class Player {
     this.#life = value
   }
 
-  DecrementLife() {
+  decrementLife() {
     return this.#life--
   }
 
-  IncrementLife() {
+  incrementLife() {
     return this.#life++
   }
 
-  Alive() {
+  alive() {
     return this.life > 0
   }
 
@@ -28,7 +28,7 @@ class Player {
     return this.#bonus
   }
 
-  AddBonus() {
+  addBonus() {
     return this.#bonus++
   }
 }
@@ -82,7 +82,7 @@ class PlayerData {
     }
 
 
-    // sessionStorage.clear()
+    sessionStorage.clear()
     // faire un sessionStorage.clear() et re populer la SS
     reversedRecords = reversedRecords.reverse()
     for (i = 0; i < reversedRecords.length; i++) {
@@ -93,7 +93,7 @@ class PlayerData {
         continue
       }
       hash[reversedRecords[i]] = true
-      // sessionStorage.setItem(`record-${i}`)
+      sessionStorage.setItem(`record-${i}`)
     }
   }
 
