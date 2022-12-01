@@ -9,7 +9,6 @@ const WinningsRules = {
 }
 
 const category = ['easy', 'medium', 'hard']
-const [easy, medium, hard] = category
 const lifePerCategory = {
   easy: 5,
   medium: 4,

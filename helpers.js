@@ -6,7 +6,6 @@ let categoryChoosen = ""
 let name = ""
 let surname = ""
 let previousRatio = 0
-let numberOfBonus = ""
 
 
 function DefineModality() {
@@ -59,9 +58,7 @@ function DisplayResultInConsole(playerSelection) {
   }
 
   previousRatio = win / rounds
-  numberOfBonus = DisplayIcons("⭐️", player.bonus)
-  console.log(`Score %c${scoreStatus} %c: ${win} / ${rounds}
-  ${player.bonus > 0 ? '\nBonus :' : numberOfBonus}`, `color: ${color}`, `color: white`)
+  console.log(`Score %c${scoreStatus} %c: ${win} / ${rounds}`, `color: ${color}`, `color: white`)
 }
   
 function Capitalize(word) {
@@ -76,21 +73,21 @@ function PickRandomQuestion() {
 }
 
 function DisplayBonusQuestion() {
-  // Not displaying bonus question for each normal question
+  // Not displaying bonus question for every question
   if (Math.random() + 0.2 < 0.5) return
 
 
   const randomQuestion = PickRandomQuestion()
-  const instructionIfBooleanResponse = bonusQuestion[randomQuestion] === true || false ? 'Type true of false :' : ''
+  const instructionIfBooleanResponse = bonusQuestions[randomQuestion] === true || false ? 'Type true of false :' : ''
   let bonusQuestion = prompt(`Bonus question ! ${instructionIfBooleanResponse}
   \n\n${randomQuestion}`)
   bonusQuestion = FormatField(bonusQuestion)
 
-  ValidateBonusQuestion(bonusQuestion)
+  ValidateBonusQuestion(bonusQuestion, randomQuestion)
 }
 
-function ValidateBonusQuestion(bonusQuestion) {
-  if (bonusQuestion === bonusQuestion[randomQuestion]) {
+function ValidateBonusQuestion(bonusQuestion, randomQuestion) {
+  if (bonusQuestion === bonusQuestions[randomQuestion].toString()) {
     player.addBonus()
   } else if (categoryChoosen === 'hard') {
     player.substractBonus()
@@ -99,4 +96,4 @@ function ValidateBonusQuestion(bonusQuestion) {
 
   
 
-export { DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, DefineModality, name, surname, categoryChoosen, DisplayBonusQuestion, numberOfBonus }
+export { DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, DefineModality, name, surname, categoryChoosen, DisplayBonusQuestion }

@@ -6,6 +6,7 @@ import { DefineModality, DisplayIcons, FormatField, DisplayResultInConsole, Capi
 let win = 0
 const player = new Player()
 let numberOfHearts = ""
+let numberOfBonus = ""
 
 
 
@@ -51,6 +52,7 @@ window.game = () => {
     let playerSelection = prompt(`Alright ${surname}, let\'s ${i === 5 ? 'start' : 'continue'} the game !\n\nChoose between : paper - scissors - rock`, 'paper')
     if (playerSelection === null) {
       console.log('A true warrior does not leave the battlefield without fighting!\nPenalty of 3, bonus -1');
+      debugger
       player.substractBonus()
       new PlayerData(name, player.life, player.bonus, win, "🐣🐣🐣", 3)
       return
@@ -68,7 +70,8 @@ window.game = () => {
     i--
   }
   
-  
+  numberOfHearts = DisplayIcons("❤️", player.life)
+  numberOfBonus = DisplayIcons("⭐️", player.bonus)
   new PlayerData(name, player.life, player.bonus, win, categoryChoosen)
 
   console.log('%cStart a new game by typing "game()" in the console', 'color: #17d136')
@@ -78,8 +81,8 @@ window.game = () => {
 
 let instructionResetStorage = ""
 if (sessionStorage.getItem('record-0')) {
-  instructionResetStorage = ' || Reset progress by typing "sessionStorage.clear() in the console'
+  instructionResetStorage = ' || Reset progress by typing "sessionStorage.clear()" in the console'
 }
 console.log(`%cStart a game by typing "game()"${instructionResetStorage}`, 'color: #17d136')
 
-export { win, player, playRound, computerPlay }
+export { win, player, playRound, computerPlay, numberOfHearts, numberOfBonus }

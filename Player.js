@@ -1,5 +1,4 @@
-import { numberOfHearts } from "./game.js"
-import { numberOfBonus } from "./helpers.js"
+import { numberOfHearts, numberOfBonus } from "./game.js"
 
 class Player {
   #life
@@ -48,6 +47,7 @@ class Player {
 
 class PlayerData {
   #records = []
+  #reversedRecords = []
 
   constructor(name, life, bonus, win, category, penalty = 0) {
     this.name = name
@@ -78,8 +78,7 @@ class PlayerData {
 
   retrieveExistingRecords() {
     this.#records = []
-    let reversedRecords = []
-    const hash = {}
+    this.#reversedRecords = []
 
     let i = 0
     let sessionRecord = sessionStorage.getItem(`record-${i}`)
@@ -87,44 +86,40 @@ class PlayerData {
     while(sessionRecord) {
       const previousRecord = JSON.parse(sessionRecord)
       this.#records.push(previousRecord)
-      reversedRecords.push(previousRecord.name)
+      this.#reversedRecords.push(previousRecord.name)
       i++
       sessionRecord = sessionStorage.getItem(`record-${i}`)
     }
 
+    sessionStorage.removeItem("IsThisFirstTime_Log_From_LiveServer")
 
-    // record-0
-    // record-1
-    // STOPPED
-    // record-3
-    // ...
+    this.#reversedRecords = this.#reversedRecords.reverse()
+    this.respectUnicityConstraintOnName()
+  }
 
-    // sessionStorage.clear()
-    //  - 1 correction because of LiveServer !
-    reversedRecords = reversedRecords.reverse()
-    for (i = 0; i < reversedRecords.length; i++) {
-      if (hash[reversedRecords[i]]) {
+  respectUnicityConstraintOnName() {
+    const hash = {}
+
+    for (let i = 0; i < this.#reversedRecords.length; i++) {
+      if (hash[this.#reversedRecords[i]]) {
+        // No existing replace() method on sessionStorage item !
         // removes the duplicate
         sessionStorage.removeItem(`record-${sessionStorage.length - i - 1}`)
-        // add the current one in place
-        sessionStorage.setItem(`record-${sessionStorage.length - i - 1}`,
-        JSON.stringify(sessionStorage.length - 1))
-        // this.#records[hash.indexOf(reversedRecords[i])] ?
+        // add the current one in place. Deleted item, index has changed !!!
+        sessionStorage.setItem(`record-${sessionStorage.length - i}`,
+        sessionStorage.getItem(`record-${sessionStorage.length}`))
         // removes the current one at last index
         sessionStorage.removeItem(`record-${sessionStorage.length - 1}`)
 
-
         this.#records.splice(this.#records.length - i - 1, 1)
-        debugger
         continue
       }
-      hash[reversedRecords[i]] = true
-      // sessionStorage.setItem(`record-${i}`)
+      hash[this.#reversedRecords[i]] = true
     }
   }
 
   appendToSessionStorage() {
-    // No existing method to append on sessionStorage
+    // No existing append() method on sessionStorage !
     let i = 0
     let sessionRecord = sessionStorage.getItem(`record-${i}`)
     while(sessionRecord) {
