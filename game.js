@@ -1,6 +1,6 @@
 import { Player, PlayerData } from './Player.js'
 import { gameConstants, WinningsRules } from './CONSTANTS.js'
-import { DefineModality, DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, name, surname, categoryChoosen, DisplayBonusQuestion, numberOfBonus } from './helpers.js'
+import { DefineModality, DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, name, surname, categoryChoosen, DisplayBonusQuestion } from './helpers.js'
 
 
 let win = 0
@@ -44,7 +44,7 @@ window.game = () => {
       \n\nJoseph Rodman Drake`, 'color: red');
       player.bonus = 0
       win = 0
-      new PlayerData(name, player.life, player.bonus, win, "💀💀💀")
+      new PlayerData(name, player.life, player.bonus, win, categoryChoosen)
       return
     }
 
@@ -69,7 +69,7 @@ window.game = () => {
   }
   
   
-  new PlayerData(name, numberOfHearts, numberOfBonus, win, categoryChoosen)
+  new PlayerData(name, player.life, player.bonus, win, categoryChoosen)
 
   console.log('%cStart a new game by typing "game()" in the console', 'color: #17d136')
   win = 0

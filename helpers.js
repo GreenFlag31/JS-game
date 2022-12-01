@@ -76,6 +76,10 @@ function PickRandomQuestion() {
 }
 
 function DisplayBonusQuestion() {
+  // Not displaying bonus question for each normal question
+  if (Math.random() + 0.2 < 0.5) return
+
+
   const randomQuestion = PickRandomQuestion()
   const instructionIfBooleanResponse = bonusQuestion[randomQuestion] === true || false ? 'Type true of false :' : ''
   let bonusQuestion = prompt(`Bonus question ! ${instructionIfBooleanResponse}

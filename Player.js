@@ -1,3 +1,6 @@
+import { numberOfHearts } from "./game.js"
+import { numberOfBonus } from "./helpers.js"
+
 class Player {
   #life
   #bonus = 0
@@ -43,37 +46,37 @@ class Player {
 }
 
 
-class PlayerData extends Player {
+class PlayerData {
   #records = []
 
   constructor(name, life, bonus, win, category, penalty = 0) {
-    super()
     this.name = name
     this.life = life
     this.bonus = bonus
     this.win = win
     this.category = category
     this.penalty = penalty
-    this.points = this.ComputeTotalPoints()
+    this.points = this.computeTotalPoints()
     this.SetRecords()
   }
   
   SetRecords() {
-    this.AppendToSessionStorage()
-    this.RetrieveExistingRecords()
-    this.SortRanking()
-    this.DisplayRecordsInConsole()
+    this.transformLifeAndBonusToIcon()
+    this.appendToSessionStorage()
+    this.retrieveExistingRecords()
+    this.sortRanking()
+    this.displayRecordsInConsole()
   }
 
-  ComputeTotalPoints() {
+  computeTotalPoints() {
     if (this.category === 'hard') {
-      return (super.life * 1.5) + (this.win * 1.25) + (super.bonus * 1.75) - this.penalty
+      return (this.life * 1.5) + (this.win * 1.25) + (this.bonus * 1.75) - this.penalty
     }
 
-    return super.life + (this.win * 1.25) + (super.bonus * 1.75) - this.penalty
+    return this.life + (this.win * 1.25) + (this.bonus * 1.75) - this.penalty
   }
 
-  RetrieveExistingRecords() {
+  retrieveExistingRecords() {
     this.#records = []
     let reversedRecords = []
     const hash = {}
@@ -105,9 +108,7 @@ class PlayerData extends Player {
     }
   }
 
-
-
-  AppendToSessionStorage() {
+  appendToSessionStorage() {
     // No existing method to append on sessionStorage
     let i = 0
     let sessionRecord = sessionStorage.getItem(`record-${i}`)
@@ -119,11 +120,16 @@ class PlayerData extends Player {
     sessionStorage.setItem(`record-${i}`, JSON.stringify(this))
   }
 
-  SortRanking() {
+  transformLifeAndBonusToIcon() {
+    this.life = numberOfHearts.length === 0 ? '💀💀💀' : numberOfHearts
+    this.bonus = numberOfBonus.length === 0 ? 0 : numberOfBonus
+  }
+
+  sortRanking() {
     this.#records.sort((a, b) => b.points - a.points)
   }
 
-  DisplayRecordsInConsole() {
+  displayRecordsInConsole() {
     console.log('\n%c ACTUAL RANKING : \n', 'color: BlueViolet; font-weight: 900; font-size; 1.3em')
     console.table(this.#records)
   }
