@@ -1,7 +1,9 @@
 import { numberOfHearts, numberOfBonus } from "./game.js"
 
 class Player {
+  /** @type {number} */
   #life
+  /** @type {number} */
   #bonus = 0
 
   constructor() { }
@@ -10,6 +12,7 @@ class Player {
     return this.#life
   }
   
+  /** @param {number} */
   set life(value) {
     this.#life = value
   }
@@ -30,6 +33,7 @@ class Player {
     return this.#bonus
   }
 
+  /** @param {number} */
   set bonus(value) {
     return this.#bonus = value
   }
@@ -46,17 +50,33 @@ class Player {
 
 
 class PlayerData {
+  /** @type {string} */
+  #name
+  /** @type {number} */
+  #life
+  /** @type {number} */
+  #bonus
+  /** @type {number} */
+  #win
+  /** @type {string} */
+  #category
+  /** @type {number} */
+  #penalty
+  /** @type {number} */
+  #points
+  /** @type {Array} */
   #records = []
+  /** @type {Array} */
   #reversedRecords = []
 
   constructor(name, life, bonus, win, category, penalty = 0) {
-    this.name = name
-    this.life = life
-    this.bonus = bonus
-    this.win = win
-    this.category = category
-    this.penalty = penalty
-    this.points = this.#computeTotalPoints()
+    this.#name = name
+    this.#life = life
+    this.#bonus = bonus
+    this.#win = win
+    this.#category = category
+    this.#penalty = penalty
+    this.#points = this.#computeTotalPoints()
     this.#setRecords()
   }
   
@@ -70,10 +90,10 @@ class PlayerData {
 
   #computeTotalPoints() {
     if (this.category === 'hard') {
-      return (this.life * 1.5) + (this.win * 1.25) + (this.bonus * 1.95) - this.penalty
+      return (this.#life * 1.5) + (this.#win * 1.25) + (this.#bonus * 1.95) - this.#penalty
     }
 
-    return this.life + (this.win * 1.25) + (this.bonus * 1.75) - this.penalty
+    return this.#life + (this.#win * 1.25) + (this.#bonus * 1.75) - this.#penalty
   }
 
   #retrieveExistingRecords() {
@@ -131,12 +151,12 @@ class PlayerData {
   }
 
   #transformLifeAndBonusToIcon() {
-    this.life = numberOfHearts.length === 0 ? '💀💀💀' : numberOfHearts
-    this.bonus = numberOfBonus.length === 0 ? 0 : numberOfBonus
+    this.#life = numberOfHearts.length === 0 ? '💀💀💀' : numberOfHearts
+    this.#bonus = numberOfBonus.length === 0 ? 0 : numberOfBonus
   }
 
   #sortRanking() {
-    this.#records.sort((a, b) => b.points - a.points)
+    this.#records.sort((a, b) => b.#points - a.#points)
   }
 
   #displayRecordsInConsole() {

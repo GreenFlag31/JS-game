@@ -9,12 +9,16 @@ let numberOfHearts = ""
 let numberOfBonus = ""
 
 
-
+/** @return {number} */
 function computerPlay() {
   return gameConstants[Math.floor(Math.random() * gameConstants.length)]
 }
 
-
+/**
+ * @param {string} playerSelection 
+ * @param {string} computerSelection 
+ * @return {string}
+ */
 function playRound(playerSelection, computerSelection) {
   
   if (computerSelection === WinningsRules[playerSelection]) {
@@ -34,7 +38,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 
-
+/** @return {void} */
 window.game = () => {
   DefineModality()
 

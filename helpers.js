@@ -7,7 +7,6 @@ let name = ""
 let surname = ""
 let previousRatio = 0
 
-
 function DefineModality() {
   name = prompt('Alright recruit, give me your name :', '')
   if (!name) {
@@ -29,6 +28,11 @@ function DefineModality() {
   }
 }
 
+/**
+ * @param {string} icon 
+ * @param {number} number 
+ * @return {string}
+ */
 function DisplayIcons(icon, number) {
   let numberOfHearts = ""
 
@@ -39,10 +43,15 @@ function DisplayIcons(icon, number) {
   return numberOfHearts
 }
 
+ /**
+  * @param {string} field 
+  * @return {string | undefined} In case the user stops the execution (leaving)
+  */
 function FormatField(field) {
   return field?.toLowerCase().replace(/\s|\W|[0-9]/g, '') ?? undefined
 }
 
+/** @param {string} playerSelection */
 function DisplayResultInConsole(playerSelection) {
   let scoreStatus = ""
   let color
@@ -60,11 +69,16 @@ function DisplayResultInConsole(playerSelection) {
   previousRatio = win / rounds
   console.log(`Score %c${scoreStatus} %c: ${win} / ${rounds}`, `color: ${color}`, `color: white`)
 }
-  
+
+/**
+ * @param {string} word 
+ * @return {string}
+ */
 function Capitalize(word) {
   return word[0].toUpperCase() + word.substring(1)
 }
 
+/** @return {number} */
 function PickRandomQuestion() {
   const questions = Object.keys(bonusQuestions)
   const randomNumber = Math.floor(Math.random() * questions.length)
@@ -72,6 +86,7 @@ function PickRandomQuestion() {
   return questions[randomNumber]
 }
 
+/** @return {(bonusQuestion : string, randomQuestion : number) => void} */
 function DisplayBonusQuestion() {
   // Not displaying bonus question for every question
   if (Math.random() + 0.2 < 0.5) return
@@ -83,7 +98,7 @@ function DisplayBonusQuestion() {
   \n\n${randomQuestion}`)
   bonusQuestion = FormatField(bonusQuestion)
 
-  ValidateBonusQuestion(bonusQuestion, randomQuestion)
+  return ValidateBonusQuestion(bonusQuestion, randomQuestion)
 }
 
 function ValidateBonusQuestion(bonusQuestion, randomQuestion) {
@@ -93,7 +108,6 @@ function ValidateBonusQuestion(bonusQuestion, randomQuestion) {
     player.substractBonus()
   }
 }
-
   
 
 export { DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, DefineModality, name, surname, categoryChoosen, DisplayBonusQuestion }
