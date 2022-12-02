@@ -15,7 +15,6 @@ const lifePerCategory = {
   hard: 3
 }
 
-
 const categorySurname = {
   easy: "chick",
   medium: "soldier",
