@@ -26,7 +26,7 @@ class Player {
   }
 
   alive() {
-    return this.life > 0
+    return this.#life > 0
   }
 
   get bonus() {
@@ -89,7 +89,7 @@ class PlayerData {
   }
 
   #computeTotalPoints() {
-    if (this.category === 'hard') {
+    if (this.#category === 'hard') {
       return (this.#life * 1.5) + (this.#win * 1.25) + (this.#bonus * 1.95) - this.#penalty
     }
 
