@@ -1,12 +1,10 @@
 import { Player, PlayerData } from './Player.js'
 import { gameConstants, WinningsRules } from './CONSTANTS.js'
-import { DefineModality, DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, name, surname, categoryChoosen, DisplayBonusQuestion } from './helpers.js'
+import { DefineModality, DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, name, surname, categoryChoosen, DisplayBonusQuestion, CheckIfPlayerIsStillAlive, DetermineIconsAndNumber } from './helpers.js'
 
 
 let win = 0
 const player = new Player()
-let numberOfHearts = ""
-let numberOfBonus = ""
 
 
 /** @return {number} */
@@ -30,7 +28,7 @@ function playRound(playerSelection, computerSelection) {
     \nA programmer is like a Samurai with his sword. Try to think like the computer is thinking.`
   } else {
     player.decrementLife()
-    numberOfHearts = DisplayIcons("❤️", player.life)
+    const numberOfHearts = player.life > 0 ? DisplayIcons("❤️", player.life) : '💀'
     return `Hehehe. You lost ! ${Capitalize(WinningsRules[playerSelection])} beats ${Capitalize(playerSelection)}
     \nRemaining life${player.life > 1 ? 's' : ''} : ${numberOfHearts}`
   }
@@ -44,20 +42,13 @@ window.game = () => {
 
   let i = 5
   while (i) {
-    if (!player.alive()) {
-      console.log(`%cThey who for their country die,\nshall fill an honored grave.\nFor glory lights the soldier's tomb,\nand beauty weeps the brave.
-      \n\nJoseph Rodman Drake`, 'color: red');
-      player.bonus = 0
-      win = 0
-      new PlayerData(name, player.life, player.bonus, win, categoryChoosen)
-      return
-    }
+    if (!CheckIfPlayerIsStillAlive()) return
 
-    let playerSelection = prompt(`Alright ${surname}, let\'s ${i === 5 ? 'start' : 'continue'} the game !\n\nChoose between : paper - scissors - rock`, 'paper')
+    let playerSelection = prompt(`Alright ${surname}, let\'s ${i === 5 ? 'start' : 'continue'} the game !\n\nChoose between : paper - scissors - rock`, 'scissors')
     if (playerSelection === null) {
       console.log('A true warrior does not leave the battlefield without fighting!\nPenalty of 3, bonus -1');
-      debugger
       player.substractBonus()
+      DetermineIconsAndNumber()
       new PlayerData(name, player.life, player.bonus, win, "🐣🐣🐣", 3)
       return
     } 
@@ -69,17 +60,20 @@ window.game = () => {
       return
     }
     
-    DisplayBonusQuestion()
     DisplayResultInConsole(playerSelection)
+    DisplayBonusQuestion()
     i--
   }
+
+  if (!CheckIfPlayerIsStillAlive()) return
   
-  numberOfHearts = DisplayIcons("❤️", player.life)
-  numberOfBonus = DisplayIcons("⭐️", player.bonus)
+
+  DetermineIconsAndNumber()
   new PlayerData(name, player.life, player.bonus, win, categoryChoosen)
 
-  console.log('%cStart a new game by typing "game()" in the console', 'color: #17d136')
+  console.log('%cStart a new game by typing "game()" in the console', 'color: #17d136; font-weight: bold; font-size: 1.1em')
   win = 0
+  player.bonus = 0
 }
 
 
@@ -89,4 +83,4 @@ if (sessionStorage.getItem('record-0')) {
 }
 console.log(`%cStart a game by typing "game()"${instructionResetStorage}`, 'color: #17d136; font-weight: bold; font-size: 1.1em')
 
-export { win, player, playRound, computerPlay, numberOfHearts, numberOfBonus }
+export { win, player, playRound, computerPlay }

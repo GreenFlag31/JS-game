@@ -1,3 +1,4 @@
+import { PlayerData } from './Player.js'
 import { player, win, playRound, computerPlay } from './game.js'
 import { rounds, categorySurname, lifePerCategory, bonusQuestions } from './CONSTANTS.js'
 
@@ -6,6 +7,9 @@ let categoryChoosen = ""
 let name = ""
 let surname = ""
 let previousRatio = 0
+let numberOfHearts = ""
+let numberOfBonus = ""
+
 
 function DefineModality() {
   name = prompt('Alright recruit, give me your name :', '')
@@ -14,7 +18,7 @@ function DefineModality() {
     name = 'Simone'
   }
   
-  let categorySelection = prompt(`Stand up ${name}, and pick up your difficulty level !\nChoose between : easy - medium - hard`, 'easy')
+  let categorySelection = prompt(`Stand up ${name}, and pick up your difficulty level !\nChoose between : easy - medium - hard`, 'medium')
   categorySelection = FormatField(categorySelection)
   
   surname = categorySurname[categorySelection] ?? "rockstar"
@@ -34,13 +38,29 @@ function DefineModality() {
  * @return {string}
  */
 function DisplayIcons(icon, number) {
-  let numberOfHearts = ""
+  let numberOfIcons = ""
 
   for (let i = 0; i < number; i++) {
-    numberOfHearts += icon
+    numberOfIcons += icon
   }
 
-  return numberOfHearts
+  return numberOfIcons
+}
+
+function DetermineIconsAndNumber() {
+  if (player.life > 0) {
+    numberOfHearts = DisplayIcons("❤️", player.life)
+  } else {
+    numberOfHearts = '💀'
+  }
+
+  if (player.bonus > 0) {
+    numberOfBonus = DisplayIcons("⭐️", player.bonus)
+  } else if (player.bonus !== 0) {
+    numberOfBonus = DisplayIcons("👎", -player.bonus)
+  } else {
+    numberOfBonus = 0
+  }
 }
 
  /**
@@ -70,6 +90,23 @@ function DisplayResultInConsole(playerSelection) {
   console.log(`Score %c${scoreStatus} %c: ${win} / ${rounds}`, `color: ${color}`, `color: white`)
 }
 
+/** 
+ * A check has to be done during game but also endgame, player might lose at last round
+ * @return {boolean}
+ */
+function CheckIfPlayerIsStillAlive() {
+  if (!player.alive()) {
+    console.log(`%cThey who for their country die,\nshall fill an honored grave.\nFor glory lights the soldier's tomb,\nand beauty weeps the brave.
+    \n\nJoseph Rodman Drake`, 'color: red');
+    DetermineIconsAndNumber()
+    new PlayerData(name, 0, 0, 0, categoryChoosen)
+    console.log('%cStart a new game by typing "game()" in the console', 'color: #17d136')
+    return false
+  }
+
+  return true
+}
+
 /**
  * @param {string} word 
  * @return {string}
@@ -86,7 +123,6 @@ function PickRandomQuestion() {
   return questions[randomNumber]
 }
 
-/** @return {(bonusQuestion: string, randomQuestion: number) => ()} */
 function DisplayBonusQuestion() {
   // Not displaying bonus question for every question
   if (Math.random() + 0.2 < 0.5) return
@@ -98,7 +134,7 @@ function DisplayBonusQuestion() {
   \n\n${randomQuestion}`)
   bonusQuestion = FormatField(bonusQuestion)
 
-  return ValidateBonusQuestion(bonusQuestion, randomQuestion)
+  ValidateBonusQuestion(bonusQuestion, randomQuestion)
 }
 
 function ValidateBonusQuestion(bonusQuestion, randomQuestion) {
@@ -110,4 +146,4 @@ function ValidateBonusQuestion(bonusQuestion, randomQuestion) {
 }
   
 
-export { DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, DefineModality, name, surname, categoryChoosen, DisplayBonusQuestion }
+export { DisplayIcons, FormatField, DisplayResultInConsole, Capitalize, DefineModality, name, surname, categoryChoosen, DisplayBonusQuestion, CheckIfPlayerIsStillAlive, numberOfHearts, numberOfBonus, DetermineIconsAndNumber }

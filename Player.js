@@ -1,12 +1,15 @@
-import { numberOfHearts, numberOfBonus } from "./game.js"
+import { numberOfHearts, numberOfBonus } from "./helpers.js"
 
 class Player {
   /** @property {number} #life */
   #life
   /** @property {number} #bonus */
-  #bonus = 0
+  #bonus
 
-  constructor() { }
+  constructor() {
+    this.#life = 0
+    this.#bonus = 0
+  }
 
   get life() {
     return this.#life
@@ -62,27 +65,32 @@ class PlayerData {
     this.win = win
     this.category = category
     this.penalty = penalty
-    this.points = this.computeTotalPoints()
-    this.setRecords()
+    this.points = this.#roundTotalPoints()
+    this.#setRecords()
   }
   
-  setRecords() {
-    this.transformLifeAndBonusToIcon()
-    this.appendToSessionStorage()
-    this.retrieveExistingRecords()
-    this.sortRanking()
-    this.displayRecordsInConsole()
+  #setRecords() {
+    this.#transformLifeAndBonusToIcon()
+    this.#appendToSessionStorage()
+    this.#retrieveExistingRecords()
+    this.#sortRanking()
+    this.#displayRecordsInConsole()
   }
 
-  computeTotalPoints() {
+  #computeTotalPoints() {
     if (this.category === 'hard') {
-      return (this.life * 1.5) + (this.win * 1.25) + (this.bonus * 1.95) - this.penalty
+      this.points = (this.life * 1.5) + (this.win * 1.25) + (this.bonus * 1.95) - this.penalty
+    } else {
+      this.points = this.life + (this.win * 1.25) + (this.bonus * 1.75) - this.penalty
     }
-
-    return this.life + (this.win * 1.25) + (this.bonus * 1.75) - this.penalty
   }
 
-  retrieveExistingRecords() {
+  #roundTotalPoints() {
+    this.#computeTotalPoints()
+    return Math.floor((this.points * 100)) / 100
+  }
+
+  #retrieveExistingRecords() {
     this.#records = []
     this.#reversedRecords = []
 
@@ -100,10 +108,10 @@ class PlayerData {
     sessionStorage.removeItem("IsThisFirstTime_Log_From_LiveServer")
 
     this.#reversedRecords = this.#reversedRecords.reverse()
-    this.respectUnicityConstraintOnName()
+    this.#respectUnicityConstraintOnName()
   }
 
-  respectUnicityConstraintOnName() {
+  #respectUnicityConstraintOnName() {
     const hash = {}
 
     for (let i = 0; i < this.#reversedRecords.length; i++) {
@@ -124,7 +132,7 @@ class PlayerData {
     }
   }
 
-  appendToSessionStorage() {
+  #appendToSessionStorage() {
     // No existing append() method on sessionStorage !
     let i = 0
     let sessionRecord = sessionStorage.getItem(`record-${i}`)
@@ -136,16 +144,16 @@ class PlayerData {
     sessionStorage.setItem(`record-${i}`, JSON.stringify(this))
   }
 
-  transformLifeAndBonusToIcon() {
-    this.life = numberOfHearts.length === 0 ? '💀💀💀' : numberOfHearts
-    this.bonus = numberOfBonus.length === 0 ? 0 : numberOfBonus
+  #transformLifeAndBonusToIcon() {
+    this.life = numberOfHearts
+    this.bonus = numberOfBonus
   }
 
-  sortRanking() {
+  #sortRanking() {
     this.#records.sort((a, b) => b.points - a.points)
   }
 
-  displayRecordsInConsole() {
+  #displayRecordsInConsole() {
     console.log('\n%c ACTUAL RANKING : \n', 'color: BlueViolet; font-weight: 900; font-size; 1.3em')
     console.table(this.#records)
   }

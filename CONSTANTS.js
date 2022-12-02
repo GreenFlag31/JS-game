@@ -28,7 +28,7 @@ const bonusQuestions =  {
 
   "Following code will make the id disappear :\n#titanic : {\n  float: none;\n}" : false,
   
-  "If the keyword 'function' is used, this function is going to be hoisted at the top of the file" : true,
+  "If the keyword 'function' is used, this function is going to be hoisted (pulled up) at the top of the file" : true,
 
   "Following code is a good alternative to display: flex; :\n#ikea : {\n  display: table;\n}" : false,
 
