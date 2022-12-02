@@ -148,6 +148,7 @@ class PlayerData {
     }
 
     sessionStorage.setItem(`record-${i}`, JSON.stringify(this))
+    debugger
   }
 
   #transformLifeAndBonusToIcon() {
