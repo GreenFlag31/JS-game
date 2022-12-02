@@ -76,19 +76,19 @@ class PlayerData {
     this.#win = win
     this.#category = category
     this.#penalty = penalty
-    this.#points = this.#computeTotalPoints()
-    this.#setRecords()
+    this.#points = this.computeTotalPoints()
+    this.setRecords()
   }
   
-  #setRecords() {
-    this.#transformLifeAndBonusToIcon()
-    this.#appendToSessionStorage()
-    this.#retrieveExistingRecords()
-    this.#sortRanking()
-    this.#displayRecordsInConsole()
+  setRecords() {
+    this.transformLifeAndBonusToIcon()
+    this.appendToSessionStorage()
+    this.retrieveExistingRecords()
+    this.sortRanking()
+    this.displayRecordsInConsole()
   }
 
-  #computeTotalPoints() {
+  computeTotalPoints() {
     if (this.#category === 'hard') {
       return (this.#life * 1.5) + (this.#win * 1.25) + (this.#bonus * 1.95) - this.#penalty
     }
@@ -96,7 +96,7 @@ class PlayerData {
     return this.#life + (this.#win * 1.25) + (this.#bonus * 1.75) - this.#penalty
   }
 
-  #retrieveExistingRecords() {
+  retrieveExistingRecords() {
     this.#records = []
     this.#reversedRecords = []
 
@@ -114,10 +114,10 @@ class PlayerData {
     sessionStorage.removeItem("IsThisFirstTime_Log_From_LiveServer")
 
     this.#reversedRecords = this.#reversedRecords.reverse()
-    this.#respectUnicityConstraintOnName()
+    this.respectUnicityConstraintOnName()
   }
 
-  #respectUnicityConstraintOnName() {
+  respectUnicityConstraintOnName() {
     const hash = {}
 
     for (let i = 0; i < this.#reversedRecords.length; i++) {
@@ -138,7 +138,7 @@ class PlayerData {
     }
   }
 
-  #appendToSessionStorage() {
+  appendToSessionStorage() {
     // No existing append() method on sessionStorage !
     let i = 0
     let sessionRecord = sessionStorage.getItem(`record-${i}`)
@@ -151,16 +151,16 @@ class PlayerData {
     debugger
   }
 
-  #transformLifeAndBonusToIcon() {
+  transformLifeAndBonusToIcon() {
     this.#life = numberOfHearts.length === 0 ? '💀💀💀' : numberOfHearts
     this.#bonus = numberOfBonus.length === 0 ? 0 : numberOfBonus
   }
 
-  #sortRanking() {
+  sortRanking() {
     this.#records.sort((a, b) => b.#points - a.#points)
   }
 
-  #displayRecordsInConsole() {
+  displayRecordsInConsole() {
     console.log('\n%c ACTUAL RANKING : \n', 'color: BlueViolet; font-weight: 900; font-size; 1.3em')
     console.table(this.#records)
   }
