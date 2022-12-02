@@ -1,9 +1,9 @@
 import { numberOfHearts, numberOfBonus } from "./game.js"
 
 class Player {
-  /** @type {number} */
+  /** @property {number} #life */
   #life
-  /** @type {number} */
+  /** @property {number} #bonus */
   #bonus = 0
 
   constructor() { }
@@ -50,9 +50,9 @@ class Player {
 
 
 class PlayerData {
-  /** @type {Array} */
+  /** @property {Array} #records */
   #records = []
-  /** @type {Array} */
+  /** @property {Array} #reversedRecords */
   #reversedRecords = []
 
   constructor(name, life, bonus, win, category, penalty = 0) {

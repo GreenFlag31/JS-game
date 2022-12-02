@@ -86,7 +86,7 @@ function PickRandomQuestion() {
   return questions[randomNumber]
 }
 
-/** @return {(bonusQuestion: string, randomQuestion: number) => void} */
+/** @return {(bonusQuestion: string, randomQuestion: number) => ()} */
 function DisplayBonusQuestion() {
   // Not displaying bonus question for every question
   if (Math.random() + 0.2 < 0.5) return
