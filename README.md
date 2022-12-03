@@ -6,5 +6,5 @@
 ⭐️ Use of Object Oriented Programming and Functional Programming</br>
 ⭐️ Documenting code with JsDoc</br>
 ⭐️ Ranking with results populated from sessionStorage</br>
-⭐️ Unicity constraint on the name in the records</br></br>
+⭐️ Unicity constraint on the name in the records</br>
 👍 Any suggestion is welcome</br>
