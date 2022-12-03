@@ -41,7 +41,13 @@ const bonusQuestions =  {
 
   "To create a new array, we should always prefer the 'new array( )' syntax" : false,
 
-  "if you compare two values, '==' will make an implicite type conversion" : true
+  "if you compare two values, '==' will make an implicite type conversion" : true,
+
+  "Javascript and Ecmascript are two differents things" : false,
+
+  "A developer could be considered full-stack with Javascript" : true,
+
+  "ES6 has introducted a major update for Javascript in 2015" : true
 }
 
 

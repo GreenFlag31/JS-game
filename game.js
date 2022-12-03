@@ -12,6 +12,9 @@ function computerPlay() {
   return gameConstants[Math.floor(Math.random() * gameConstants.length)]
 }
 
+
+
+
 /**
  * @param {string} playerSelection 
  * @param {string} computerSelection 
@@ -34,6 +37,8 @@ function playRound(playerSelection, computerSelection) {
   }
 
 }
+
+
 
 
 /** @return {void} */
@@ -75,6 +80,8 @@ window.game = () => {
   win = 0
   player.bonus = 0
 }
+
+
 
 
 let instructionResetStorage = ""

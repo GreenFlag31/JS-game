@@ -105,7 +105,7 @@ class PlayerData {
       sessionRecord = sessionStorage.getItem(`record-${i}`)
     }
 
-    sessionStorage.removeItem("IsThisFirstTime_Log_From_LiveServer")
+    // sessionStorage.removeItem("IsThisFirstTime_Log_From_LiveServer")
 
     this.#reversedRecords = this.#reversedRecords.reverse()
     this.#respectUnicityConstraintOnName()
@@ -119,7 +119,7 @@ class PlayerData {
         // No existing replace() method on sessionStorage item !
         // removes the duplicate
         sessionStorage.removeItem(`record-${sessionStorage.length - i - 1}`)
-        // add the current one in place. Deleted item, index has changed !!!
+        // add the current one in place. Deleted item, index has changed !
         sessionStorage.setItem(`record-${sessionStorage.length - i}`,
         sessionStorage.getItem(`record-${sessionStorage.length}`))
         // removes the current one at last index

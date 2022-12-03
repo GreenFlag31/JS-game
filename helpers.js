@@ -32,6 +32,7 @@ function DefineModality() {
   }
 }
 
+
 /**
  * @param {string} icon 
  * @param {number} number 
@@ -46,6 +47,7 @@ function DisplayIcons(icon, number) {
 
   return numberOfIcons
 }
+
 
 function DetermineIconsAndNumber() {
   if (player.life > 0) {
@@ -63,6 +65,7 @@ function DetermineIconsAndNumber() {
   }
 }
 
+
  /**
   * @param {string} field 
   * @return {string | undefined} In case the user stops the execution (leaving)
@@ -70,6 +73,7 @@ function DetermineIconsAndNumber() {
 function FormatField(field) {
   return field?.toLowerCase().replace(/\s|\W|[0-9]/g, '') ?? undefined
 }
+
 
 /** @param {string} playerSelection */
 function DisplayResultInConsole(playerSelection) {
@@ -90,6 +94,7 @@ function DisplayResultInConsole(playerSelection) {
   console.log(`Score %c${scoreStatus} %c: ${win} / ${rounds}`, `color: ${color}`, `color: white`)
 }
 
+
 /** 
  * A check has to be done during game but also endgame, player might lose at last round
  * @return {boolean}
@@ -107,6 +112,7 @@ function CheckIfPlayerIsStillAlive() {
   return true
 }
 
+
 /**
  * @param {string} word 
  * @return {string}
@@ -123,6 +129,7 @@ function PickRandomQuestion() {
   return questions[randomNumber]
 }
 
+
 function DisplayBonusQuestion() {
   // Not displaying bonus question for every question
   if (Math.random() + 0.2 < 0.5) return
@@ -136,6 +143,7 @@ function DisplayBonusQuestion() {
 
   ValidateBonusQuestion(bonusQuestion, randomQuestion)
 }
+
 
 function ValidateBonusQuestion(bonusQuestion, randomQuestion) {
   if (bonusQuestion === bonusQuestions[randomQuestion].toString()) {
