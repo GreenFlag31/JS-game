@@ -58,7 +58,7 @@ function DetermineIconsAndNumber() {
 
   if (player.bonus > 0) {
     numberOfBonus = DisplayIcons("⭐️", player.bonus)
-  } else if (player.bonus !== 0) {
+  } else if (player.bonus < 0) {
     numberOfBonus = DisplayIcons("👎", -player.bonus)
   } else {
     numberOfBonus = 0

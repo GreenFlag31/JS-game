@@ -47,7 +47,9 @@ const bonusQuestions =  {
 
   "A developer could be considered full-stack with Javascript" : true,
 
-  "ES6 has introducted a major update for Javascript in 2015" : true
+  "ES6 has introducted a major update for Javascript in 2015" : true,
+
+  "Visual Studio Code was originally written with a mix of JavaScript and TypeScript" : true
 }
 
 
