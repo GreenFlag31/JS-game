@@ -14,7 +14,7 @@ let numberOfBonus = ""
 function DefineModality() {
   name = prompt('Alright recruit, give me your name :', '')
   if (!name) {
-    alert('Alright, you will be called Simone ! 🤓');
+    alert('Alright, you will be called Simone ! 🤓')
     name = 'Simone'
   }
   

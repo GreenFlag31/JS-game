@@ -106,7 +106,7 @@ class PlayerData {
     }
 
     // *** If you are using Live server ***
-    // sessionStorage.removeItem("IsThisFirstTime_Log_From_LiveServer")
+    sessionStorage.removeItem("IsThisFirstTime_Log_From_LiveServer")
 
     this.#reversedRecords = this.#reversedRecords.reverse()
     this.#respectUnicityConstraintOnName()
