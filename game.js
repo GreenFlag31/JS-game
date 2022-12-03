@@ -32,8 +32,8 @@ function playRound(playerSelection, computerSelection) {
   } else {
     player.decrementLife()
     const numberOfHearts = player.life > 0 ? DisplayIcons("❤️", player.life) : '💀'
-    return `Hehehe. You lost ! ${Capitalize(WinningsRules[playerSelection])} beats ${Capitalize(playerSelection)}
-    \nRemaining life${player.life > 1 ? 's' : ''} : ${numberOfHearts}`
+    const answer = playerSelection === '' ? '' : `${Capitalize(WinningsRules[playerSelection])} beats ${Capitalize(playerSelection)}`
+    return `Hehehe. You lost ! ${answer} \nRemaining life${player.life > 1 ? 's' : ''} : ${numberOfHearts}`
   }
 
 }
@@ -59,11 +59,7 @@ window.game = () => {
     } 
     
     playerSelection = FormatField(playerSelection)
-    if (!gameConstants.includes(playerSelection)) {
-      console.log('%cInvalid input', 'color: red')
-      game()
-      return
-    }
+
     
     DisplayResultInConsole(playerSelection)
     DisplayBonusQuestion()

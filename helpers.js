@@ -67,6 +67,7 @@ function DetermineIconsAndNumber() {
 
 
  /**
+  * No spaces, no non-alpha numeric characters, no numbers allowed
   * @param {string} field 
   * @return {string | undefined} In case the user stops the execution (leaving)
   */
@@ -118,7 +119,7 @@ function CheckIfPlayerIsStillAlive() {
  * @return {string}
  */
 function Capitalize(word) {
-  return word[0].toUpperCase() + word.substring(1)
+  return word?.substring(0, 1).toUpperCase() + word?.substring(1) ?? ''
 }
 
 /** @return {number} */
