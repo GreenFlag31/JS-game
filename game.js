@@ -59,8 +59,10 @@ window.game = () => {
     } 
     
     playerSelection = FormatField(playerSelection)
-
-    
+    if (!gameConstants.includes(playerSelection)) {
+      console.log('%cInvalid input\n%cChoose between paper-scissors-rock', 'color: red',  'color: white');
+    }
+     
     DisplayResultInConsole(playerSelection)
     DisplayBonusQuestion()
     i--
